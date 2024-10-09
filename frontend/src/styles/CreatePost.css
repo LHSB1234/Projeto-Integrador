@@ -1,0 +1,79 @@
+.create-post-container {
+    position: fixed; /* Fica sobre a página */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Fica acima de outros elementos */
+  }
+  
+  .create-post-modal {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .create-post-modal h2 {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .create-post-modal textarea {
+    width: 100%;
+    height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    resize: none; /* Remove o redimensionamento */
+  }
+  
+  .create-post-modal input[type="file"] {
+    margin: 10px 0;
+  }
+  
+  .create-post-modal .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .create-post-modal button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-post-modal button.submit {
+    background-color: #28a745; /* Verde para o botão de enviar */
+    color: white;
+  }
+  
+  .create-post-modal button.submit:hover {
+    background-color: #218838; /* Verde escuro ao passar o mouse */
+  }
+  
+  .create-post-modal button.cancel {
+    background-color: #dc3545; /* Vermelho para o botão de cancelar */
+    color: white;
+  }
+  
+  .create-post-modal button.cancel:hover {
+    background-color: #c82333; /* Vermelho escuro ao passar o mouse */
+  }
+  
+  .create-post-modal button.cancel {
+    background-color: #dc3545; /* Vermelho para o botão de sair */
+    color: white;
+}
+
+.create-post-modal button.cancel:hover {
+    background-color: #c82333; /* Vermelho escuro ao passar o mouse */
+}
