@@ -1,45 +1,66 @@
 import React, { useEffect, useState } from 'react';
-import Post from './Post'; // Certifique-se de que o caminho está correto
-import '../styles/Post.css';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-const PostsComponent = () => {
-    const [posts, setPosts] = useState([]);
-    const apiUrl = 'http://localhost:8082/www/4SM/pj2/pj2/backend/routes/routes.php';
+const Post = () => {
+    const { id } = useParams();  // Pega o ID do post da URL
+    const [post, setPost] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchPosts = async () => {
+        const fetchPost = async () => {
             try {
-                const response = await fetch(apiUrl, {
-                    method: 'GET',
-                    credentials: 'include',
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/get_post.php`, {
+                    params: { id },
+                    withCredentials: true, // Certifique-se de que isso está habilitado
                 });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
+        
+                if (response.data.error) {
+                    throw new Error(response.data.error);
                 }
-
-                const data = await response.json();
-                setPosts(data);
-            } catch (error) {
-                console.error('Houve um problema com a requisição:', error);
+        
+                setPost(response.data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
             }
-        };
+        };        
+        fetchPost();
+    }, [id]);
 
-        fetchPosts();
-    }, []);
+    if (loading) {
+        return <div>Carregando...</div>;
+    }
+
+    if (error) {
+        return <div>Erro: {error}</div>;
+    }
+
+    if (!post) {
+        return <div>Post não encontrado</div>;
+    }
 
     return (
         <div>
-            <h1>Posts</h1>
-            {posts.length > 0 ? (
-                posts.map(post => (
-                    <Post key={post.id} post={post} /> // Renderiza o componente Post para cada post
-                ))
-            ) : (
-                <p>Nenhum post encontrado.</p>
+            <h1>{post.title}</h1>
+            <p>{post.description}</p>
+
+            {post.images && post.images.length > 0 && (
+                <div className="post-images">
+                    {post.images.map((img, index) => (
+                        <img 
+                            key={index} 
+                            src={img} 
+                            alt={`Imagem ${index + 1} do post`}
+                            style={{ width: '100%', marginBottom: '10px' }} 
+                        />
+                    ))}
+                </div>
             )}
         </div>
     );
 };
 
-export default PostsComponent;
+export default Post;

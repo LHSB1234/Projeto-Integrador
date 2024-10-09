@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/CreatePost.css';
 
-// Crie uma instância do axios com a configuração para incluir credenciais
+// Instância do axios com credenciais
 const axiosInstance = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
-    withCredentials: true, // Inclui credenciais por padrão
+    withCredentials: true, // Isso deve ser verdadeiro para enviar cookies/sessões
 });
 
 const CreatePost = ({ onClose, onCreatePost }) => {
@@ -26,16 +26,14 @@ const CreatePost = ({ onClose, onCreatePost }) => {
         }
 
         try {
+            // Certifique-se que a URL base está correta no .env
             const response = await axiosInstance.post('/create_post.php', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
 
-            console.log('Resposta da API:', response.data);
-
             if (response.data.error) {
-                console.error('Erro da API:', response.data.error);
                 alert(response.data.error);
             } else {
                 if (typeof onCreatePost === 'function') {
@@ -44,7 +42,6 @@ const CreatePost = ({ onClose, onCreatePost }) => {
                 onClose();
             }
         } catch (error) {
-            console.error('Erro ao criar o post:', error.response ? error.response.data : error.message);
             alert('Ocorreu um erro ao criar o post.');
         } finally {
             setIsSubmitting(false);
@@ -71,7 +68,7 @@ const CreatePost = ({ onClose, onCreatePost }) => {
                         value={description} 
                         onChange={(e) => setDescription(e.target.value)} 
                         required 
-                    ></textarea>
+                    />
                     <input 
                         type="file" 
                         onChange={(e) => setImage(e.target.files[0])} 

@@ -1,39 +1,47 @@
 import React, { useEffect, useState } from 'react';
 
 const PostsComponent = () => {
-    const [posts, setPosts] = useState([]); // Estado para armazenar os posts
-    const apiUrl = 'http://localhost:8082/www/4SM/pj2/pj2/backend/routes/routes.php';
+    const [posts, setPosts] = useState([]);
+    const apiUrl = process.env.REACT_APP_API_URL + '/routes/routes.php';
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
                 const response = await fetch(apiUrl, {
-                    method: 'GET', // Método da requisição
-                    credentials: 'include' // Incluir cookies ou credenciais, se necessário
+                    method: 'GET',
+                    credentials: 'include',
                 });
 
                 if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
+                    throw new Error('Erro na resposta da rede: ' + response.statusText);
                 }
 
-                const data = await response.json(); // Converte a resposta para JSON
-                setPosts(data); // Atualiza o estado com os posts recebidos
+                const data = await response.json();
+                setPosts(data);
             } catch (error) {
-                console.error('Houve um problema com a requisição:', error); // Captura e exibe erros
+                console.error('Erro na requisição:', error);
             }
         };
 
-        fetchPosts(); // Chama a função para buscar os posts
-    }, []); // O array vazio significa que isso será executado apenas uma vez quando o componente for montado
+        fetchPosts();
+    }, []);
 
     return (
         <div>
             <h1>Posts</h1>
-            <ul>
-                {posts.map(post => (
-                    <li key={post.id}>{post.title}</li> // Renderiza cada post em uma lista
-                ))}
-            </ul>
+            {posts.length > 0 ? (
+                posts.map(post => (
+                    <div key={post.id}>
+                        <h2>{post.title}</h2>
+                        <p>{post.description}</p>
+                        {post.images && post.images.map((img, index) => (
+                            <img key={index} src={img} alt="Imagem do post" />
+                        ))}
+                    </div>
+                ))
+            ) : (
+                <p>Nenhum post encontrado.</p>
+            )}
         </div>
     );
 };

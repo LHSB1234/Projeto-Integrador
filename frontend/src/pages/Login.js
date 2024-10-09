@@ -16,6 +16,8 @@ function Login({ onLogin }) {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/login.php`, {
         phone,
         password,
+      }, {
+        withCredentials: true, // Adicione isso aqui
       });
 
       // Exibe a resposta no console para depuração

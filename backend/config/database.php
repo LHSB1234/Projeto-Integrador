@@ -1,14 +1,19 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "BdBlog";
+class Database {
+    private $host = "localhost";
+    private $db_name = "BdBlog";
+    private $username = "root";
+    private $password = "";
+    public $conn;
 
-// Criar conexão
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Checar conexão
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    public function getConnection() {
+        $this->conn = null;
+        try {
+            $this->conn = new mysqli($this->host, $this->username, $this->password, $this->db_name);
+        } catch (Exception $exception) {
+            echo "Erro de conexão: " . $exception->getMessage();
+        }
+        return $this->conn;
+    }
 }
 ?>
