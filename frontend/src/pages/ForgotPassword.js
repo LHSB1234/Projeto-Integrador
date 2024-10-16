@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importe useNavigate
+import '../styles/Login.css';
 
 function ForgotPassword() {
   const [telefone, setTelefone] = useState('');
@@ -36,9 +37,9 @@ function ForgotPassword() {
   };
 
   return (
-    <div>
+    <div class="login-container">
       <h2>Esqueci a Senha</h2>
-      <form onSubmit={handleForgotPassword}>
+      <form class="login-form" onSubmit={handleForgotPassword}>
         <div>
           <label>Telefone:</label>
           <input
@@ -50,7 +51,7 @@ function ForgotPassword() {
         <button type="submit">Recuperar Senha</button>
       </form>
       {mensagem && <p>{mensagem}</p>}
-      <button onClick={handleBackToLogin}>Voltar ao Login</button> {/* Botão para voltar ao login */}
+      <button class="façalogin" onClick={handleBackToLogin}>Voltar ao Login</button> {/* Botão para voltar ao login */}
     </div>
   );
 }

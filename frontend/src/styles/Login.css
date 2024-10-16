@@ -1,0 +1,122 @@
+/* login.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("./img/fundinho.jpg");  
+    background-size: cover;
+;
+  }
+  
+  .façalogin{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;  
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    margin-left: 5.5rem;
+    margin-right: auto;
+    width: 50%;
+  }
+  .façalogin:hover{
+    background-color: #3e8e41;
+    transition: 0.5s;
+  }
+
+  .login-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.2); /* adiciona transparência */
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 1);
+  }
+  
+  .login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-form input[type="text"], .login-form input[type="password"] {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login-form input[type="text"]:focus, .login-form input[type="password"]:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-form button[type="submit"] {
+    width: 100%;
+    height: 40px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-form button[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+  
+  .error-message {
+    color: #f44336;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .forgot-password {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .forgot-password a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  
+  .forgot-password a:hover {
+    color: #3e8e41;
+  }
+  
+  /* Media queries */
+  
+  @media (max-width: 768px) {
+    .login-container {
+      max-width: 100%;
+      margin: 20px;
+      padding: 10px;
+    }
+  
+    .login-form input[type="text"], .login-form input[type="password"] {
+      width: 100%;
+      height: 30px;
+      margin-bottom: 10px;
+      padding: 5px;
+    }
+  
+    .login-form button[type="submit"] {
+      width: 100%;
+      height: 30px;
+    }
+  
+    .error-message {
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+  }
