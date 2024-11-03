@@ -17,8 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 if (isset($_SESSION['username'])) {
     unset($_SESSION['username']); // Remove o usuário da sessão
     session_destroy(); // Destrói a sessão
-    echo json_encode(['message' => 'Logout realizado com sucesso']);
+    echo json_encode(['success' => true, 'message' => 'Logout realizado com sucesso']);
 } else {
-    echo json_encode(['message' => 'Usuário não autenticado']);
+    echo json_encode(['success' => false, 'message' => 'Usuário não autenticado']);
 }
 ?>

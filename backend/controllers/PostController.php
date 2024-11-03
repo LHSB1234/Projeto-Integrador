@@ -27,7 +27,8 @@ class PostController {
                 // Array para armazenar as imagens
                 $images = [];
                 while ($imageRow = $imageResult->fetch_assoc()) {
-                    $images[] = $imageRow['image_url'];
+                    // Alterar para incluir o caminho completo da imagem
+                    $images[] = "http://localhost/4SM/pj2/pj2/backend/uploads/" . $imageRow['image_url'];
                 }
 
                 $row['images'] = $images; 

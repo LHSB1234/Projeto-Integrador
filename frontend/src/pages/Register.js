@@ -28,12 +28,13 @@ function Register() {
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/register.php`, formData);
-
+      console.log('Response data:', response.data);  // Adicione esta linha para ver os dados da resposta
+    
       if (response.data.success) {
         setSuccessMessage('Usuário registrado com sucesso!');
         setTimeout(() => {
           navigate('/login');
-        }, 2000);  // Pequeno delay para mostrar a mensagem de sucesso
+        }, 2000);
       } else {
         setErrorMessage(response.data.message || 'Falha no registro. Tente novamente.');
       }
@@ -46,7 +47,7 @@ function Register() {
   return (
     <div className="login-container">
       <h2>Registro</h2>
-      <form class="login-form" onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
@@ -74,7 +75,7 @@ function Register() {
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
 
-      <button class="façalogin" onClick={() => navigate('/login')}>
+      <button className="façalogin" onClick={() => navigate('/login')}>
         Já tem uma conta? Faça login
       </button>
     </div>

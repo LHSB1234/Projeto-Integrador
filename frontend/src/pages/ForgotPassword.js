@@ -24,7 +24,7 @@ function ForgotPassword() {
       if (data.success) {
         // Exibir as informações em um alerta
         window.alert(`Nome de Usuário: ${data.username}\nTelefone: ${data.phone}\nSenha: ${data.password}`);
-      }   else {
+      } else {
         setMensagem(data.message);
       }
     } catch (error) {
@@ -37,13 +37,14 @@ function ForgotPassword() {
   };
 
   return (
-    <div class="login-container">
+    <div className="login-container">
       <h2>Esqueci a Senha</h2>
-      <form class="login-form" onSubmit={handleForgotPassword}>
+      <form className="login-form" onSubmit={handleForgotPassword}>
         <div>
-          <label>Telefone:</label>
+          <label htmlFor="phone">Telefone:</label>
           <input
             type="text"
+            id="phone" // Adicionando um ID para melhorar a acessibilidade
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
           />
@@ -51,7 +52,7 @@ function ForgotPassword() {
         <button type="submit">Recuperar Senha</button>
       </form>
       {mensagem && <p>{mensagem}</p>}
-      <button class="façalogin" onClick={handleBackToLogin}>Voltar ao Login</button> {/* Botão para voltar ao login */}
+      <button className="façalogin" onClick={handleBackToLogin}>Voltar ao Login</button> {/* Botão para voltar ao login */}
     </div>
   );
 }

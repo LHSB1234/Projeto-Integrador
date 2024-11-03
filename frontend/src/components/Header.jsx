@@ -1,23 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaUser, FaSignOutAlt, FaBars, FaPlus } from 'react-icons/fa'; // Ícone de menu e botão de criar post
+import { Link } from 'react-router-dom';
+import { FaUser, FaSignOutAlt, FaBars, FaPlus } from 'react-icons/fa';
 import Sidebar from './SideBar';
 import '../styles/Header.css';
 
-const Header = ({ username, setIsAuthenticated, setIsCreatePostOpen }) => {
+const Header = ({ username, onLogout, setIsCreatePostOpen }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await fetch(`${process.env.REACT_APP_API_URL}/logout.php`, { method: 'POST' });
-      setIsAuthenticated(false);
-      navigate('/login');
-    } catch (error) {
-      console.error('Erro ao realizar logout:', error);
-    }
-  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -56,7 +45,7 @@ const Header = ({ username, setIsAuthenticated, setIsCreatePostOpen }) => {
               <FaUser size={30} />
             </Link>
             {username && (
-              <button className="logout-button" onClick={handleLogout}>
+              <button className="logout-button" onClick={onLogout}>
                 <FaSignOutAlt size={20} /> Sair
               </button>
             )}
