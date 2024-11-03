@@ -8,8 +8,6 @@ function Footer() {
         <p>&copy; {new Date().getFullYear()} Meu Blog de Arquitetura, Engenharia Civil e Design de Interiores. Todos os direitos reservados.</p>
         <nav>
           <ul>
-            <li><a href="/terms">Termos de Serviço</a></li>
-            <li><a href="/privacy">Política de Privacidade</a></li>
             <li><a href="/contact">Contato</a></li>
           </ul>
         </nav>
