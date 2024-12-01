@@ -8,24 +8,32 @@ function Blog() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        let isMounted = true; // Controla se o componente ainda está montado
         async function fetchPosts() {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts.php`);
-                console.log('Dados retornados:', response.data); // Verifique a estrutura dos dados
-                if (Array.isArray(response.data)) {
+                console.log('Dados retornados:', response.data); // Apenas para debug
+                if (Array.isArray(response.data) && isMounted) {
                     setPosts(response.data);
-                } else {
+                } else if (isMounted) {
                     setError('A resposta não é um array.');
                 }
             } catch (error) {
-                setError('Erro ao buscar posts.');
+                if (isMounted) {
+                    setError('Erro ao buscar posts.');
+                }
             } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         }
-    
         fetchPosts();
-    }, []);
+
+        return () => {
+            isMounted = false; // Garante que nenhuma atualização ocorra após o componente desmontar
+        };
+    }, []); // Array vazio garante que o useEffect seja chamado apenas uma vez
 
     if (loading) {
         return <p>Carregando posts...</p>;

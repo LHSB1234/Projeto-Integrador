@@ -28,8 +28,7 @@ if (!$result) {
 
 $posts = [];
 while ($row = mysqli_fetch_assoc($result)) {
-    // Alterar para incluir o caminho completo da imagem
-    $row['images'] = []; // Inicializando o array de imagens
+    $row['images'] = [];
     $imageQuery = "SELECT image_url FROM post_images WHERE post_id = ?";
     $stmtImages = $connection->prepare($imageQuery);
     $stmtImages->bind_param('i', $row['id']);

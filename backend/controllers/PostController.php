@@ -1,6 +1,5 @@
 <?php
 require_once '../config/database.php';
-
 class PostController {
     public function getPosts() {
         global $conn;
@@ -27,11 +26,17 @@ class PostController {
                 // Array para armazenar as imagens
                 $images = [];
                 while ($imageRow = $imageResult->fetch_assoc()) {
-                    // Alterar para incluir o caminho completo da imagem
                     $images[] = "http://localhost/4SM/pj2/pj2/backend/uploads/" . $imageRow['image_url'];
                 }
 
-                $row['images'] = $images; 
+                // Se houver imagens, preenche o campo 'image' com a primeira imagem
+                if (count($images) > 0) {
+                    $row['image'] = $images[0];  // Adiciona a primeira imagem como 'image'
+                } else {
+                    $row['image'] = null;  // Se não houver imagens, define como null
+                }
+
+                $row['images'] = $images; // Mantém o array de imagens
                 $posts[] = $row;
             }
         } else {
@@ -41,9 +46,13 @@ class PostController {
             return;
         }
 
-        // Retorna os posts como JSON
+        error_log("Posts enviados: " . json_encode($posts));
+        echo json_encode($posts);
+
+        // Retorna os posts como JSON, garantindo que só seja enviado uma vez
         header('Content-Type: application/json');
         echo json_encode($posts);
+        exit;  // Garante que nada mais seja impresso após o JSON
     }
 }
 

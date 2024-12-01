@@ -52,9 +52,13 @@ try {
     // Processamento da imagem
     $image = null;
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $image = $_FILES['image']['name'];
+        // Gerando um nome único para a imagem com base no timestamp atual
+        $timestamp = microtime(true); // Retorna o timestamp com milissegundos
+        $imageExtension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION); // Pega a extensão da imagem
+        $imageName = date('YmdHis', $timestamp) . substr($timestamp, -4) . '.' . $imageExtension; // Exemplo: 2024113012381541.jpg
+        
         $target_dir = "../uploads/"; // Ajustar o caminho correto para salvar a imagem
-        $target_file = $target_dir . basename($image);
+        $target_file = $target_dir . basename($imageName);
         
         // Verifica se o diretório existe, se não, cria
         if (!is_dir($target_dir)) {
@@ -65,7 +69,10 @@ try {
             echo json_encode(["error" => "Falha ao mover a imagem para o diretório de uploads."]);
             exit;
         }
+        
+        $image = $imageName; // Atribui o nome gerado para a imagem
     }
+
 
     // Verifica se os dados obrigatórios estão preenchidos
     if (empty($title) || empty($description)) {

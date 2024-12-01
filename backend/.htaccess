@@ -2,6 +2,9 @@
     RewriteEngine On
     RewriteBase /
 
+    # Permite o acesso direto à pasta 'uploads'
+    RewriteRule ^uploads/ - [L]
+
     # Permite acesso a arquivos PHP diretamente
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
